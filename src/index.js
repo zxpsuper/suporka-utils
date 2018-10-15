@@ -1,22 +1,10 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+// 1. 类型
 var isDone = false;
 var list = [1, 2, 3];
 // 数组泛型
 var list2 = [1, 2, 3];
 // 元组 Tuple,元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同
-var x = ['12', 22];
+var x = ["12", 22];
 /* 枚举, 常数不可变
 enum类型是对JavaScript标准数据类型的一个补充。 */
 var Color;
@@ -61,7 +49,10 @@ var Clock = /** @class */ (function () {
     }
     return Clock;
 }());
-// 5.类
+// 3.类
+// private 当成员被标记成private时，它就不能在声明它的类的外部访问。
+// public 默认是 public
+// protected 成员在派生类中仍然可以访问
 var Animal = /** @class */ (function () {
     function Animal(theName) {
         this.name = theName;
@@ -69,13 +60,34 @@ var Animal = /** @class */ (function () {
     }
     return Animal;
 }());
-var Rhino = /** @class */ (function (_super) {
-    __extends(Rhino, _super);
-    function Rhino() {
-        return _super.call(this, "Rhino") || this;
+// new Animal("Cat").name; // 错误: 'name' 是私有的.
+// 存取器 set get
+var passcode = "secret passcode";
+var Employee = /** @class */ (function () {
+    function Employee() {
     }
-    return Rhino;
-}(Animal));
-var animal = new Animal("Goat");
-var rhino = new Rhino();
-animal = rhino;
+    Object.defineProperty(Employee.prototype, "fullName", {
+        get: function () {
+            return this._fullName;
+        },
+        set: function (newName) {
+            if (passcode && passcode == "secret passcode") {
+                this._fullName = newName;
+            }
+            else {
+                console.log("Error: Unauthorized update of employee!");
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Employee;
+}());
+var employee = new Employee();
+employee.fullName = "Bob Smith";
+if (employee.fullName) {
+    console.log(employee.fullName);
+}
+// 静态属性 static
+// 抽象类  abstract class Animal
+// 抽象方法必须在子类中实现

@@ -1,0 +1,26 @@
+/*清除浮动*/
+.clear-float:after{
+	content:".";
+	clear:both;
+	display:block;
+	height:0;
+	overflow:hidden;
+	visibility:hidden;
+}
+.clear-float {
+	zoom:1
+} 
+/* 文字过多三点隐藏显示，需定宽 */
+.no-wrap{
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}
+/* 文字过多两行三点隐藏显示，需定宽 */
+.no-wrap2 {
+	overflow:hidden; 
+  text-overflow:ellipsis;
+	display:-webkit-box; 
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2; 
+}
