@@ -105,7 +105,7 @@ export function isEmail(emailStr:string): boolean {
  * @returns {string}
  */
 export function trim(str:string): string {
-  return str.replace(/^\s+|\s+$/g, "");;
+  return str.replace(/^\s+|\s+$/g, "");
 }
 
 /**
@@ -178,5 +178,19 @@ export function getSystem(): string {
   if (isIOS) {
 　　//这个是ios操作系统
     return "ios"
+  }
+}
+
+/**
+ * 兼容IE添加事件监听
+ * @export
+ * @param {string} type 事件名 
+ * @param {function} fn 处理函数
+ */
+export function handleAddListener(type: string, fn: any) {
+  if (window.addEventListener) {
+    window.addEventListener(type, fn);
+  } else {
+    window.attachEvent('on' + type, fn);
   }
 }
