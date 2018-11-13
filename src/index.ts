@@ -15,6 +15,7 @@ enum Color {
   Green,
   Blue
 }
+
 let super2: Color = Color.Red;
 // super2 = 888
 console.log(super2); // 10
@@ -122,4 +123,64 @@ if (employee.fullName) {
 // 静态属性 static
 
 // 抽象类  abstract class Animal
-// 抽象方法必须在子类中实现
+// 抽象类中的抽象方法不包含具体实现并且必须在派生类中实现。
+
+abstract class Department {
+  constructor(public name: string) {}
+
+  printName(): void {
+    console.log("Department name: " + this.name);
+  }
+
+  abstract printMeeting(): void; // 必须在派生类中实现
+}
+
+class AccountingDepartment extends Department {
+  constructor() {
+    super("Accounting and Auditing"); // 在派生类的构造函数中必须调用 super()
+  }
+
+  printMeeting(): void {
+    console.log("The Accounting Department meets each Monday at 10am.");
+  }
+
+  generateReports(): void {
+    console.log("Generating accounting reports...");
+  }
+}
+
+let department: Department; // 允许创建一个对抽象类型的引用
+department = new Department(); // 错误: 不能创建一个抽象类的实例
+department = new AccountingDepartment(); // 允许对一个抽象子类进行实例化和赋值
+department.printName();
+department.printMeeting();
+department.generateReports(); // 错误: 方法在声明的抽象类中不存在
+// 完整函数类型
+let myAdd: (x: number, y: number) => number = function(
+  x: number,
+  y: number
+): number {
+  return x + y;
+};
+
+// 箭头函数能保存函数创建时的this值，而不是调用时的值
+
+// 当你将一个函数传递到某个库函数里在稍后被调用时，你可能也见到过回调函数里的this会报错。
+// 因为当回调函数被调用时，它会被当成一个普通函数调用，this将为undefined。
+// 稍做改动，你就可以通过this参数来避免错误。 首先，库函数的作者要指定this的类型：
+// 因为onClick 指定了this类型为void，因此传递addClickListener是合法的。 当然了，这也意味着不能使用this.info. 如果你两者都想要，你不得不使用箭头函数了
+
+interface UIElement {
+  addClickListener(onclick: (this: void, e: Event) => void): void;
+}
+
+// 泛型，使返回值的类型与传入参数的类型是相同的
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+let output = identity<string>("myString"); // type of output will be 'string'
+// <string>可以省略，编译器会自动识别
+let output2 = identity("myString");
+// 泛型类型
+let myIdentity: <T>(arg: T) => T = identity;
