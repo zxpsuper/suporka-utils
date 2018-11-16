@@ -93,10 +93,11 @@ export function deepClone(data: any): any {
  * @param {string} emailStr
  * @returns {boolean}
  */
-export function isEmail(emailStr:string): boolean {
-  return /^[a-zA-Z0-9]+([._-]*[a-zA-Z0-9]*)*@[a-zA-Z0-9]+.[a-zA-Z0-9{2,5}$]/.test(emailStr);
+export function isEmail(emailStr: string): boolean {
+  return /^[a-zA-Z0-9]+([._-]*[a-zA-Z0-9]*)*@[a-zA-Z0-9]+.[a-zA-Z0-9{2,5}$]/.test(
+    emailStr
+  );
 }
-
 
 /**
  * 去除多余空格,并返回处理过的str
@@ -104,7 +105,7 @@ export function isEmail(emailStr:string): boolean {
  * @param {string} str
  * @returns {string}
  */
-export function trim(str:string): string {
+export function trim(str: string): string {
   return str.replace(/^\s+|\s+$/g, "");
 }
 
@@ -116,7 +117,7 @@ export function trim(str:string): string {
  * @returns {boolean}
  */
 export function hasClass(ele: any, cls: string): boolean {
-	return ele.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
+  return ele.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
 }
 
 /**
@@ -126,7 +127,7 @@ export function hasClass(ele: any, cls: string): boolean {
  * @param {string} cls 类名
  */
 export function addClass(ele: any, cls: string): void {
-	if (!hasClass(ele, cls)) ele.className += " " + cls;
+  if (!hasClass(ele, cls)) ele.className += " " + cls;
 }
 
 /**
@@ -136,10 +137,10 @@ export function addClass(ele: any, cls: string): void {
  * @param {string} cls 类名
  */
 export function removeClass(ele: any, cls: string): void {
-	if (hasClass(ele, cls)) {
-		let reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
-		ele.className = ele.className.replace(reg, " ");
-	}
+  if (hasClass(ele, cls)) {
+    let reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
+    ele.className = ele.className.replace(reg, " ");
+  }
 }
 
 /**
@@ -149,9 +150,14 @@ export function removeClass(ele: any, cls: string): void {
  */
 export function IsPC(): boolean {
   var userAgentInfo = navigator.userAgent;
-  var Agents = ["Android", "iPhone",
-    "SymbianOS", "Windows Phone",
-    "iPad", "iPod"];
+  var Agents = [
+    "Android",
+    "iPhone",
+    "SymbianOS",
+    "Windows Phone",
+    "iPad",
+    "iPod"
+  ];
   var flag = true;
   for (var v = 0; v < Agents.length; v++) {
     if (userAgentInfo.indexOf(Agents[v]) > 0) {
@@ -168,30 +174,30 @@ export function IsPC(): boolean {
  * @return {boolean}
  */
 export function getSystem(): string {
-  var u = navigator.userAgent
-  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+  var u = navigator.userAgent;
+  var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1; //g
   var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
   if (isAndroid) {
     //这个是安卓操作系统
-    return "android"
+    return "android";
   }
   if (isIOS) {
-　　//这个是ios操作系统
-    return "ios"
+    //这个是ios操作系统
+    return "ios";
   }
 }
 
 /**
  * 兼容IE添加事件监听
  * @export
- * @param {string} type 事件名 
+ * @param {string} type 事件名
  * @param {function} fn 处理函数
  */
 export function handleAddListener(type: string, fn: any) {
   if (window.addEventListener) {
     window.addEventListener(type, fn);
   } else {
-    window.attachEvent('on' + type, fn);
+    (<any>window).attachEvent("on" + type, fn);
   }
 }
 /**
