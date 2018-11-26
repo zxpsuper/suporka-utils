@@ -150,11 +150,12 @@ class AccountingDepartment extends Department {
 }
 
 let department: Department; // 允许创建一个对抽象类型的引用
-department = new Department(); // 错误: 不能创建一个抽象类的实例
+// department = new Department(); // 错误: 不能创建一个抽象类的实例
 department = new AccountingDepartment(); // 允许对一个抽象子类进行实例化和赋值
 department.printName();
 department.printMeeting();
-department.generateReports(); // 错误: 方法在声明的抽象类中不存在
+// department.generateReports(); // 错误: 方法在声明的抽象类中不存在
+
 // 完整函数类型
 let myAdd: (x: number, y: number) => number = function(
   x: number,
@@ -174,8 +175,7 @@ interface UIElement {
   addClickListener(onclick: (this: void, e: Event) => void): void;
 }
 
-
-//  
+//
 // 泛型，使返回值的类型与传入参数的类型是相同的
 function identity<T>(arg: T): T {
   return arg;

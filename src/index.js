@@ -1,3 +1,16 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // 1. 类型
 var isDone = false;
 var list = [1, 2, 3];
@@ -90,4 +103,46 @@ if (employee.fullName) {
 }
 // 静态属性 static
 // 抽象类  abstract class Animal
-// 抽象方法必须在子类中实现
+// 抽象类中的抽象方法不包含具体实现并且必须在派生类中实现。
+var Department = /** @class */ (function () {
+    function Department(name) {
+        this.name = name;
+    }
+    Department.prototype.printName = function () {
+        console.log("Department name: " + this.name);
+    };
+    return Department;
+}());
+var AccountingDepartment = /** @class */ (function (_super) {
+    __extends(AccountingDepartment, _super);
+    function AccountingDepartment() {
+        return _super.call(this, "Accounting and Auditing") || this;
+    }
+    AccountingDepartment.prototype.printMeeting = function () {
+        console.log("The Accounting Department meets each Monday at 10am.");
+    };
+    AccountingDepartment.prototype.generateReports = function () {
+        console.log("Generating accounting reports...");
+    };
+    return AccountingDepartment;
+}(Department));
+var department; // 允许创建一个对抽象类型的引用
+// department = new Department(); // 错误: 不能创建一个抽象类的实例
+department = new AccountingDepartment(); // 允许对一个抽象子类进行实例化和赋值
+department.printName();
+department.printMeeting();
+// department.generateReports(); // 错误: 方法在声明的抽象类中不存在
+// 完整函数类型
+var myAdd = function (x, y) {
+    return x + y;
+};
+//
+// 泛型，使返回值的类型与传入参数的类型是相同的
+function identity(arg) {
+    return arg;
+}
+var output = identity("myString"); // type of output will be 'string'
+// <string>可以省略，编译器会自动识别
+var output2 = identity("myString");
+// 泛型类型
+var myIdentity = identity;
