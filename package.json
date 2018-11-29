@@ -5,7 +5,7 @@
   "main": "greeter.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commit": "node git-commit.js && git push",
+    "commit": "node git-commit.js",
     "build": "webpack --config ./webpack.config.js",
     "dev": "tsc -w --target es5 src/index.ts && node src/index.js"
   },

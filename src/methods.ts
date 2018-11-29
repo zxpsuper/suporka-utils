@@ -100,6 +100,15 @@ export function isEmail(emailStr: string): boolean {
 }
 
 /**
+ * 判断是否为中国大陆手机
+ * @param phone
+ * @returns {boolean}
+ */
+export function isPhone(phone: string): boolean {
+  return /^1[3|4|5|7|8][0-9]{9}$/.test(phone);
+}
+
+/**
  * 去除多余空格,并返回处理过的str
  * @export
  * @param {string} str
