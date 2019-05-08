@@ -20,7 +20,7 @@ export function type(obj: any): string {
     "Error",
     "Arguments"
   ];
-  typeArr.map((item) => {
+  typeArr.map(item => {
     toType["[object " + item + "]"] = item.toLowerCase();
   });
 
@@ -202,14 +202,13 @@ export function getSystem(): string {
  * @param {string} type 事件名
  * @param {function} fn 处理函数
  */
-export function handleAddListener(type: string, fn: any):void {
+export function handleAddListener(type: string, fn: any): void {
   if (window.addEventListener) {
     window.addEventListener(type, fn);
   } else {
     (<any>window).attachEvent("on" + type, fn);
   }
 }
-
 
 /**
  * 获取最小公倍数
@@ -249,7 +248,7 @@ export function maxDivisor(num1: number, num2: number): number {
  * 打印页面加载解析时间
  * @export
  */
-export function getTiming():void {
+export function getTiming(): void {
   try {
     var time = performance.timing;
     var timingObj: any = {};
@@ -263,39 +262,35 @@ export function getTiming():void {
       return;
     }
 
-    timingObj['重定向时间'] =
-      (time.redirectEnd - time.redirectStart) / 1000;
-    timingObj['DNS解析时间'] =
+    timingObj["重定向时间"] = (time.redirectEnd - time.redirectStart) / 1000;
+    timingObj["DNS解析时间"] =
       (time.domainLookupEnd - time.domainLookupStart) / 1000;
-    timingObj['TCP完成握手时间'] =
-      (time.connectEnd - time.connectStart) / 1000;
-    timingObj['HTTP请求响应完成时间'] =
+    timingObj["TCP完成握手时间"] = (time.connectEnd - time.connectStart) / 1000;
+    timingObj["HTTP请求响应完成时间"] =
       (time.responseEnd - time.requestStart) / 1000;
-    timingObj['DOM开始加载前所花费时间'] =
+    timingObj["DOM开始加载前所花费时间"] =
       (time.responseEnd - time.navigationStart) / 1000;
-    timingObj['DOM加载完成时间'] =
-      (time.domComplete - time.domLoading) / 1000;
-    timingObj['DOM结构解析完成时间'] =
+    timingObj["DOM加载完成时间"] = (time.domComplete - time.domLoading) / 1000;
+    timingObj["DOM结构解析完成时间"] =
       (time.domInteractive - time.domLoading) / 1000;
-    timingObj['脚本加载时间'] =
-      (time.domContentLoadedEventEnd - time.domContentLoadedEventStart) /
-      1000;
-    timingObj['onload事件时间'] =
+    timingObj["脚本加载时间"] =
+      (time.domContentLoadedEventEnd - time.domContentLoadedEventStart) / 1000;
+    timingObj["onload事件时间"] =
       (time.loadEventEnd - time.loadEventStart) / 1000;
-    timingObj['页面完全加载时间'] =
-      timingObj['重定向时间'] +
-      timingObj['DNS解析时间'] +
-      timingObj['TCP完成握手时间'] +
-      timingObj['HTTP请求响应完成时间'] +
-      timingObj['DOM结构解析完成时间'] +
-      timingObj['DOM加载完成时间'];
+    timingObj["页面完全加载时间"] =
+      timingObj["重定向时间"] +
+      timingObj["DNS解析时间"] +
+      timingObj["TCP完成握手时间"] +
+      timingObj["HTTP请求响应完成时间"] +
+      timingObj["DOM结构解析完成时间"] +
+      timingObj["DOM加载完成时间"];
 
     for (let item in timingObj) {
-      console.log(item + ':' + timingObj[item] + '毫秒(ms)');
+      console.log(item + ":" + timingObj[item] + "毫秒(ms)");
     }
-    console.log('performance.timing=' + performance.timing);
+    console.log("performance.timing=" + performance.timing);
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 }
 
@@ -303,9 +298,41 @@ export function getTiming():void {
  * 获取地址栏参数
  * @param name 参数名
  */
-export function getQueryString (name: string):string {
-  let t = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+export function getQueryString(name: string): string {
+  let t = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
   let a = window.location.search.substr(1).match(t);
   if (a != null) return a[2].toString();
-  return '';
-};
+  return "";
+}
+
+/**
+ * 判断两个变量值是否完全相同
+ * @param a 任何类型变量
+ * @param b 任何类型变量
+ */
+export function isEquals(a: any, b: any): boolean {
+  if (a === b) return true;
+  if (a instanceof Date && b instanceof Date)
+    return a.getTime() === b.getTime();
+  if (!a || !b || (typeof a !== "object" && typeof b !== "object"))
+    return a === b;
+  if (a.prototype !== b.prototype) return false;
+  if (Array.isArray(a) && Array.isArray(b)) a.sort(), b.sort();
+
+  let keys = Object.keys(a);
+  if (keys.length !== Object.keys(b).length) return false;
+  return keys.every(k => isEquals(a[k], b[k]));
+}
+
+/**
+ * 打乱数组
+ * @param a 数组
+ */
+export function breakArray(a: Array<any>): Array<any> {
+  for (let i = a.length; i; i--) {
+    let j = Math.floor(Math.random() * i);
+    // es6语法
+    [a[i - 1], a[j]] = [a[j], a[i - 1]];
+  }
+  return a;
+}
