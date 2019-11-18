@@ -1,19 +1,32 @@
 {
-  "name": "tsdemo",
+  "name": "suporka-utils",
   "version": "1.0.0",
   "description": "",
-  "main": "greeter.js",
+  "main": "./dist/suporka_utils.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "node git-commit.js",
-    "build": "webpack --config ./webpack.config.js",
-    "dev": "tsc -w --target es5 src/methods.ts && node src/index.js"
+    "build": "webpack --config ./webpack.config.js && gulp",
+    "dev": "tsc -w --target es5 src/index.ts"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxpsuper/suporka-utils.git"
+  },
+  "keywords": [
+    "utils",
+    "methods",
+    "suporka"
+  ],
+  "author": "suporka",
   "license": "ISC",
+  "homepage": "https://github.com/zxpsuper/suporka-utils#readme",
   "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
     "ts-loader": "^5.1.1",
-    "typescript": "^3.0.3",
+    "typescript": "^3.7.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
